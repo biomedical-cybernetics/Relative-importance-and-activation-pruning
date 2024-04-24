@@ -1,11 +1,17 @@
 ## Relative Importance and Activations (RIA)
 
 **PLUG-AND-PLAY: AN EFFICIENT POST-TRAINING PRUNING METHOD FOR LARGE LANGUAGE MODELS**
-Yingtao Zhang$^{1,2}$, Haoli Bai$^4$, Haokun Lin$^{5}$, Jialin Zhao$^{1,2}$, Lu Hou$^4$, & Carlo Vittorio Cannistraci$^{1,2,3}$ 
-$^1$Center for Complex Network Intelligence, Tsinghua Laboratory of Brain and Intelligence 
+
+Yingtao Zhang$^{1,2}$, Haoli Bai$^4$, Haokun Lin$^{5}$, Jialin Zhao$^{1,2}$, Lu Hou$^4$, & Carlo Vittorio Cannistraci$^{1,2,3}$​
+
+$^1$Center for Complex Network Intelligence, Tsinghua Laboratory of Brain and Intelligence
+
 $^2$Department of Computer Science, Tsinghua University 
+
 $^3$Department of Biomedical Engineering, Tsinghua University 
-$^4$Huawei Noah’s Ark Lab, $^5$​Institute of Automation, Chinese Academy of Sciences 
+
+$^4$Huawei Noah’s Ark Lab, $^5$​​​​Institute of Automation, Chinese Academy of Sciences 
+
 Corresponding to {zhangyingtao1024,kalokagathos.agon\}@gmail.com} 
 
 
