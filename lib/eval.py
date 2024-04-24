@@ -1,5 +1,4 @@
 # Import necessary modules
-import time
 import torch
 import torch.nn as nn
 from torch.profiler import profile, record_function, ProfilerActivity
@@ -31,11 +30,6 @@ def eval_ppl(model, tokenizer, dataset, bs, device=torch.device("cuda:0")):
 
 # Function to evaluate perplexity (ppl) specifically on the wikitext dataset
 def eval_ppl_wikitext_train(model, trainloader, bs=1, device=None):
-    # Get input IDs
-    # testenc = testenc.input_ids
-
-    # Calculate number of samples
-    # nsamples = testenc.numel() // model.seqlen
     nsamples = len(trainloader)
 
     # List to store negative log likelihoods
@@ -51,15 +45,12 @@ def eval_ppl_wikitext_train(model, trainloader, bs=1, device=None):
         j = min(i+bs, nsamples)
 
         # Prepare inputs and move to device
-        # inputs = testenc[:,(i * model.seqlen):(j * model.seqlen)].to(device)
         inputs = trainloader[i][0].to(device)
         inputs = inputs.reshape(j-i, model.seqlen)
 
         # Forward pass through the model
         
         lm_logits = model(inputs).logits
-        
-        
         
         # Shift logits and labels for next token prediction
         shift_logits = lm_logits[:, :-1, :].contiguous()
@@ -132,9 +123,6 @@ def eval_ppl_wikitext(model, testenc, bs=8, device=None):
     # Compute perplexity
     ppl = torch.exp(torch.stack(nlls).sum() / (nsamples * model.seqlen))
 
-    # Empty CUDA cache to save memory
-    # torch.cuda.empty_cache()
-
     return ppl.item()
 
 
@@ -169,9 +157,6 @@ def eval_zero_shot(model_name, task_list=["qqp","rte","mnli","mrpc","sst2","cola
         check_integrity=False,
         write_out=False,
         output_base_path=None
-        # model=model,
-        # tokenizer=tokenizer, 
-        # add_special_tokens=add_special_tokens
     )
     print("********************************")
     print("zero_shot evaluation results")

@@ -84,8 +84,8 @@ def get_pile(nsamples, seed, seqlen, tokenizer):
 # Load and process c4 dataset
 def get_c4(nsamples, seed, seqlen, tokenizer):
     # Load train and validation datasets
-    traindata = load_dataset('../c4', data_files={'train': 'c4-train.00000-of-01024.json'}, split='train')
-    valdata = load_dataset('../c4', data_files={'validation': 'c4-validation.00000-of-00008.json'}, split='validation')
+    traindata = load_dataset('../../c4', data_files={'train': 'c4-train.00000-of-01024.json'}, split='train')
+    valdata = load_dataset('../../c4', data_files={'validation': 'c4-validation.00000-of-00008.json'}, split='validation')
 
     # Generate samples from training set
     random.seed(seed)

@@ -1,6 +1,12 @@
 ## Relative Importance and Activations (RIA)
 
----------------
+**PLUG-AND-PLAY: AN EFFICIENT POST-TRAINING PRUNING METHOD FOR LARGE LANGUAGE MODELS**
+Yingtao Zhang$^{1,2}$, Haoli Bai$^4$, Haokun Lin$^{5}$, Jialin Zhao$^{1,2}$, Lu Hou$^4$, & Carlo Vittorio Cannistraci$^{1,2,3}$ 
+$^1$Center for Complex Network Intelligence, Tsinghua Laboratory of Brain and Intelligence 
+$^2$Department of Computer Science, Tsinghua University 
+$^3$Department of Biomedical Engineering, Tsinghua University 
+$^4$Huawei Noah’s Ark Lab, $^5$​Institute of Automation, Chinese Academy of Sciences 
+Corresponding to {zhangyingtao1024,kalokagathos.agon\}@gmail.com} 
 
 
 
@@ -18,9 +24,8 @@ conda activate ria
 Step 2: Install relevant packages
 
 ```
-pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu121
-pip install transformers=4.36.2 sentencepiece=0.1.99 datasets=2.16.1 bitsandbytes=0.42.0
-pip install accelerate=0.26.1
+pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/nightly/cu121
+
 ```
 
 
@@ -98,3 +103,54 @@ Make sure that your GPU support cusparselt, otherwise please set
 
 Which force to use CUTLASS
 
+
+
+#### Additional Experimental Results on LLaMA3
+
+------
+
+LLaMA3-8B on Wikitext2: fully connected: PPL 6.14
+
+|                     | 50% unstructured sparsity | 2:4   | 2:4+Channel Permutation | 4:8   |
+| ------------------- | ------------------------- | ----- | ----------------------- | ----- |
+| Magnitude           | 2499.39                   |       |                         |       |
+| Relative Importance | 135.77                    |       |                         |       |
+| Wanda               | 10.82                     | 24.18 | 22.03                   |       |
+| Sparsegpt           | 9.40                      | 16.26 |                         | 12.13 |
+| Ria                 | 9.34                      | 23.08 | 20.05                   |       |
+
+
+
+LLaMA3-70B on Wikitext2: fully connected: PPL 2.85
+
+|                     | 50% unstructured sparsity | 2:4  | 2:4+Channel Permutation | 4:8  |
+| ------------------- | ------------------------- | ---- | ----------------------- | ---- |
+| Magnitude           | 19.11                     |      |                         |      |
+| Relative Importance | 6.09                      |      |                         |      |
+| Wanda               | 6.56                      | 9.28 |                         |      |
+| Sparsegpt           | 5.79                      |      |                         |      |
+| Ria                 | 5.49                      | 8.35 |                         |      |
+
+
+
+#### Acknowledgment
+
+---
+
+This repository is built upon the [SparseGPT](https://github.com/IST-DASLab/sparsegpt) and [Wanda](https://github.com/locuslab/wanda) repository.
+
+
+
+#### Citation
+
+----
+
+If you use our code, please consider to cite:
+
+```
+@inproceedings{zhangplug,
+  title={Plug-and-Play: An Efficient Post-training Pruning Method for Large Language Models},
+  author={Zhang, Yingtao and Bai, Haoli and Lin, Haokun and Zhao, Jialin and Hou, Lu and Cannistraci, Carlo Vittorio},
+  booktitle={The Twelfth International Conference on Learning Representations}
+}
+```

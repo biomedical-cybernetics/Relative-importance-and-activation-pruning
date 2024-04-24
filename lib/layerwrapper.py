@@ -18,15 +18,9 @@ class WrappedGPT:
         self.columns = layer.weight.data.shape[1]
 
         self.scaler_row = torch.zeros((self.columns), device=self.dev)
-        # self.scaler_var = torch.zeros((self.columns), device=self.dev)
-        # self.scaler_col = torch.zeros((self.rows), device = self.dev)
-        # self.scaler_col_l1 = torch.zeros((self.rows), device=self.dev)
-        # self.scaler_row_l1 = torch.zeros((self.columns), device=self.dev)
         self.reconstruct = reconstruct
         if self.reconstruct or args.gptq:
             self.H = torch.zeros((self.columns, self.columns), device=self.dev)
-        # self.scaler_row_mean = torch.zeros((self.columns), device=self.dev)
-        # self.std = torch.zeros((self.columns), device=self.dev)
         self.nsamples = 0
         if "up" in layer_name or "gate" in layer_name:
             self.out = torch.zeros((self.rows), device=self.dev)
@@ -35,7 +29,6 @@ class WrappedGPT:
         self.sigmoid = nn.Sigmoid()
 
     def add_batch(self, inp, out):
-        # print(self.nsamples)
         if len(inp.shape) == 2:
             inp = inp.unsqueeze(0)
             out = out.unsqueeze(0)
@@ -51,16 +44,9 @@ class WrappedGPT:
         if "up" in self.layer_name or "gate" in self.layer_name:
             self.out *= self.nsamples / (self.nsamples+tmp)
             
-        
-        
-        # self.scaler_var *= self.nsamples / (self.nsamples+tmp) 
-        # self.scaler_row_l1 *= self.nsamples / (self.nsamples+tmp)
-        # self.scaler_col *= self.nsamples / (self.nsamples+tmp)
-        # self.scaler_col_l1 *= self.nsamples / (self.nsamples+tmp)
         if self.reconstruct:
             self.H *= self.nsamples / (self.nsamples + tmp)
         
-        # self.scaler_row_mean *= self.nsamples / (self.nsamples+tmp)
         self.nsamples += tmp
         
         inp = inp.type(torch.float32)
@@ -72,16 +58,10 @@ class WrappedGPT:
         if "up" in self.layer_name or "gate" in self.layer_name:
             self.out += torch.mean(torch.abs(out), dim=1)  / self.nsamples
         
-        # self.scaler_var += torch.var(inp, dim=1) / self.nsamples
-        # self.scaler_row_l1 += torch.mean(torch.abs(inp), dim=1)  / self.nsamples
-        # self.scaler_col += torch.norm(out, p=2, dim=1) ** 2  / self.nsamples
-        # self.scaler_col_l1 += torch.mean(torch.abs(out), dim=1)  / self.nsamples
         if self.reconstruct:
             inp = math.sqrt(2 / self.nsamples) * inp.float()
             self.H += inp.matmul(inp.t())
-        # self.scaler_row_mean += torch.mean(torch.abs(inp) / torch.sum(torch.abs(inp), dim=0), dim=1) / self.nsamples
-        # print(self.layer.weight.data.shape, torch.mean(torch.abs(inp), dim=1).shape, torch.std(torch.abs(inp), dim=1).shape)
-        # self.std += torch.std(inp, dim=1)** 2 / self.nsamples
+
     
     def fasterprune(
         self, sparsity, prune_n=0, prune_m=0, blocksize=128, percdamp=.01, mask=None
@@ -125,7 +105,6 @@ class WrappedGPT:
             Hinv = H
         
 
-        # mask = None
 
         for i1 in range(0, self.columns, blocksize):
             i2 = min(i1 + blocksize, self.columns)
@@ -260,12 +239,6 @@ class WrappedGPT:
 
             W[:, i2:] -= Err1.matmul(Hinv[i1:i2, i2:])
 
-            # if DEBUG:
-            #     self.layer.weight.data[:, :i2] = Q[:, :i2]
-            #     self.layer.weight.data[:, i2:] = W[:, i2:]
-            #     print(torch.sum((self.layer(self.inp1) - self.out1) ** 2))
-            #     print(torch.sum(Losses))
-
         torch.cuda.synchronize()
         print('time %.2f' % (time.time() - tick))
         print('error', torch.sum(Losses).item())
@@ -276,8 +249,6 @@ class WrappedGPT:
         if isinstance(self.layer, transformers.Conv1D):
             Q = Q.t()
         self.layer.weight.data = Q.reshape(self.layer.weight.shape).to(self.layer.weight.data.dtype)
-        # if DEBUG:
-        #     print(torch.sum((self.layer(self.inp1) - self.out1) ** 2))
             
     def free(self):
         self.H = None

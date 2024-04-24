@@ -21,14 +21,6 @@ def get_llm(model_name, cache_dir="llm_weights", seqlen=2048):
         low_cpu_mem_usage=True, 
         device_map="auto"
     )
-    
-    # model = AutoModelForCausalLM.from_pretrained(
-    #     model_name, 
-    #     load_in_8bit=True,
-    #     cache_dir=cache_dir, 
-    #     low_cpu_mem_usage=True, 
-    #     device_map="auto"
-    # )
 
     model.seqlen = seqlen
     return model
