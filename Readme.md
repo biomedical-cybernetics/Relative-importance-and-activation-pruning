@@ -2,17 +2,15 @@
 
 **PLUG-AND-PLAY: AN EFFICIENT POST-TRAINING PRUNING METHOD FOR LARGE LANGUAGE MODELS**
 
-Yingtao Zhang$^{1,2}$, Haoli Bai$^4$, Haokun Lin$^{5}$, Jialin Zhao$^{1,2}$, Lu Hou$^4$, & Carlo Vittorio Cannistraci$^{1,2,3}$​
+Yingtao Zhang<sup>1,2</sup>, Haoli Bai<sup>4</sup>, Haokun Lin<sup>5</sup>, Jialin Zhao<sup>1,2</sup>, Lu Hou<sup>4</sup>, & Carlo Vittorio Cannistraci<sup>1,2,3</sup>
 
-$^1$Center for Complex Network Intelligence, Tsinghua Laboratory of Brain and Intelligence
+<sup>1</sup> Center for Complex Network Intelligence, Tsinghua Laboratory of Brain and Intelligence  
+<sup>2</sup> Department of Computer Science, Tsinghua University  
+<sup>3</sup> Department of Biomedical Engineering, Tsinghua University  
+<sup>4</sup> Huawei Noah’s Ark Lab  
+<sup>5</sup> Institute of Automation, Chinese Academy of Sciences  
 
-$^2$Department of Computer Science, Tsinghua University 
-
-$^3$Department of Biomedical Engineering, Tsinghua University 
-
-$^4$Huawei Noah’s Ark Lab, $^5$​​​​Institute of Automation, Chinese Academy of Sciences 
-
-Corresponding to {zhangyingtao1024,kalokagathos.agon\}@gmail.com} 
+Corresponding to {zhangyingtao1024, kalokagathos.agon}@gmail.com
 
 
 
