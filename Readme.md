@@ -152,9 +152,12 @@ This repository is built upon the [SparseGPT](https://github.com/IST-DASLab/spar
 If you use our code, please consider to cite:
 
 ```
-@inproceedings{zhangplug,
-  title={Plug-and-Play: An Efficient Post-training Pruning Method for Large Language Models},
-  author={Zhang, Yingtao and Bai, Haoli and Lin, Haokun and Zhao, Jialin and Hou, Lu and Cannistraci, Carlo Vittorio},
-  booktitle={The Twelfth International Conference on Learning Representations}
+@inproceedings{
+zhang2024plugandplay,
+title={Plug-and-Play: An Efficient Post-training Pruning Method for Large Language Models},
+author={Yingtao Zhang and Haoli Bai and Haokun Lin and Jialin Zhao and Lu Hou and Carlo Vittorio Cannistraci},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+url={https://openreview.net/forum?id=Tr0lPx9woF}
 }
 ```
